@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+<button type="button" name="button" class="new-game">New Game</button>
+
+<div class="lhs">Timer
+    <div class="timer"></div>
+</div>
+
+<div class="main">
+
+  <div class="grid">
+    <div class="cube 0"></div>
+    <div class="cube 1"></div>
+    <div class="cube 2"></div>
+    <div class="cube 3"></div>
+    <div class="cube 4"></div>
+    <div class="cube 5"></div>
+    <div class="cube 6"></div>
+    <div class="cube 7"></div>
+    <div class="cube 8"></div>
+    <div class="cube 9"></div>
+    <div class="cube 10"></div>
+    <div class="cube 11"></div>
+    <div class="cube 12"></div>
+    <div class="cube 13"></div>
+    <div class="cube 14"></div>
+    <div class="cube 15"></div>
+  </div>
+
+  <div class="submit-div">
+    <div class="clicked-letters"></div>
+    <button type="button" name="button" class="submit disable">Submit</button>
+  </div>
+</div>
+<div class="you-lose">You Lose :(</div>
+
+<div class="rhs">Found Words
+  <div class="title">
+      <div class="player1 myTurn">Player 1
+          <div class="wordsPlayer1"></div>
+      </div>
+      <div class="player2 myTurn">Player 2
+          <div class="wordsPlayer2"></div>
+      </div>
+  </div>
+</div>
+
+  <script src="logic.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
