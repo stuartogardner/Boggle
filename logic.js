@@ -57,6 +57,11 @@ Boggle.prototype._createGrid = function(shuffledLetters){
   return this.grid;
 };
 
+
+Boggle.prototype._checkWord = function(){
+
+};
+
 Boggle.prototype._countdown = function(){
 
   // timer here doesn't start, pause, or stop timer
