@@ -11,54 +11,61 @@
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
+  <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
   <title>Document</title>
 </head>
 <body>
 
-<button type="button" name="button" class="new-game">New Game</button>
+  <button type="button" name="button" class="new-game">New Game</button>
 
-<div class="lhs">Timer
-    <div class="timer"></div>
-</div>
-
-<div class="main">
-
-  <div class="grid">
-    <div class="cube 0 corner" y="0" x="0"></div>
-    <div class="cube 1" y="0" x="1"></div>
-    <div class="cube 2" y="0" x="2"></div>
-    <div class="cube 3" y="0" x="3"></div>
-    <div class="cube 4" y="1" x="0"></div>
-    <div class="cube 5" y="1" x="1"></div>
-    <div class="cube 6" y="1" x="2"></div>
-    <div class="cube 7" y="1" x="3"></div>
-    <div class="cube 8" y="2" x="0"></div>
-    <div class="cube 9" y="2" x="1"></div>
-    <div class="cube 10" y="2" x="2"></div>
-    <div class="cube 11" y="2" x="3"></div>
-    <div class="cube 12" y="3" x="0"></div>
-    <div class="cube 13" y="3" x="1"></div>
-    <div class="cube 14" y="3" x="2"></div>
-    <div class="cube 15" y="3" x="3"></div>
+  <div class="lhs">Timer
+      <div class="timer"></div>
   </div>
 
-  <div class="submit-div">
-    <div class="clicked-letters"></div>
-    <button type="button" name="button" class="submit disable">Submit</button>
-  </div>
-</div>
-<div class="you-lose">You Lose :(</div>
+  <div class="main">
 
-<div class="rhs">Found Words
-  <div class="title">
-      <div class="player1 myTurn">Player 1
-          <div class="wordsPlayer1"></div>
-      </div>
-      <div class="player2 myTurn">Player 2
-          <div class="wordsPlayer2"></div>
-      </div>
+    <div class="grid">
+      <div class="cube 0 corner" y="0" x="0"></div>
+      <div class="cube 1" y="0" x="1"></div>
+      <div class="cube 2" y="0" x="2"></div>
+      <div class="cube 3" y="0" x="3"></div>
+      <div class="cube 4" y="1" x="0"></div>
+      <div class="cube 5" y="1" x="1"></div>
+      <div class="cube 6" y="1" x="2"></div>
+      <div class="cube 7" y="1" x="3"></div>
+      <div class="cube 8" y="2" x="0"></div>
+      <div class="cube 9" y="2" x="1"></div>
+      <div class="cube 10" y="2" x="2"></div>
+      <div class="cube 11" y="2" x="3"></div>
+      <div class="cube 12" y="3" x="0"></div>
+      <div class="cube 13" y="3" x="1"></div>
+      <div class="cube 14" y="3" x="2"></div>
+      <div class="cube 15" y="3" x="3"></div>
+    </div>
+
+    <div class="submit-div">
+      <div class="clicked-letters"></div>
+      <button type="button" name="button" class="submit disable">Submit</button>
+    </div>
   </div>
-</div>
+
+  <div class="you-lose"><img src="https://media.giphy.com/media/3og0IEeKFFlzaykixW/giphy.gif" class="loser" alt="loser"></div>
+
+  <div class="rhs">Found Words
+    <div class="title">
+        <div class="player1 myTurn">Player 1
+            <div class="wordsPlayer1"></div>
+        </div>
+        <div class="player2 myTurn">Player 2
+            <div class="wordsPlayer2"></div>
+        </div>
+    </div>
+  </div>
 
 <svg class="svg">
 </svg>

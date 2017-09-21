@@ -1,7 +1,6 @@
 var game;
 var player1Array = [];
 var player2Array = [];
-var index;
 var clickedLetters="";
 
 var yStart;
@@ -9,17 +8,6 @@ var xStart;
 
 var yEnd;
 var xEnd;
-
-// this is for line drawing
-var row0=50;
-var row1=150;
-var row2=250;
-var row3=350;
-
-var col0=50;
-var col1=150;
-var col2=250;
-var col3=350;
 
 $(document).ready(function() {
 
@@ -48,6 +36,8 @@ $(".new-game").click(function(){
       $(".submit").prop("disabled", true); //disables the button on 'new game' load
       $(".submit").addClass("disable");
 
+      $(".cube").effect( "bounce", {times: 4, direction: "up", distance: 50}, 900);
+
       $(".svg").empty();
       xStart = undefined;
       yStart = undefined;
@@ -57,13 +47,13 @@ $(".new-game").click(function(){
         $("."+m).text(flattenedGrid[m]);
       }
 
+
 // CLICK
       $(".cube").on("click", function(){
-        $(this).prop("disabled", true);
 
         $(this).addClass("fixed");
 
-        index = ($(".cube").index(this));
+        var index = ($(".cube").index(this));
 
         if(index===0){
           $(".1,.4,.5").removeClass("fixed");
@@ -159,8 +149,6 @@ $(".new-game").click(function(){
 
             yEnd = $(this).attr("y");
             xEnd = $(this).attr("x");
-
-            //draw something
 
             var newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             newLine.setAttribute('x1', (xStart*100)+50);
