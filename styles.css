@@ -7,8 +7,8 @@ body{
 
 .lhs{
   margin-top: 40px;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin-left: 50px;
+  margin-right: 50px;
   font-size: 2em;
   color: #4d4d4d;
 }
@@ -33,6 +33,16 @@ body{
   background-color: lightgrey;
 }
 
+.fakeWord {
+  background-image: url("http://images.hellogiggles.com/uploads/2015/01/20/image1.jpg");
+  background-size: 100% 100%;
+}
+
+.usedWord {
+  background-image: url("https://i.imgflip.com/1wbgkl.jpg");
+  background-size: 100% 100%;
+}
+
 .you-lose{
   width: 400px;
   height: 400px;
@@ -48,6 +58,8 @@ body{
   background-color: lightgrey;
   font-size: 5em;
   color: red;
+  background-image: url("https://media.giphy.com/media/3og0IEeKFFlzaykixW/giphy.gif");
+  background-size: 100% 100%;
 }
 
 .cube {
@@ -150,9 +162,7 @@ body{
   width: 200px;
 }
 
-.myTurn{
-  color: red;
-}
+
 
 .wordsPlayer1, .wordsPlayer2 {
   color: #4d4d4d;
@@ -160,11 +170,15 @@ body{
   white-space: pre-wrap;
 }
 
+.myTurn{
+  color: red;
+}
+
 .svg{
   height: 400px;
   width: 400px;
-  margin-left: 403px;
-  margin-top: -499px;
+  margin-left: 386px;
+  margin-top: -498px;
   pointer-events: none;
   /*border: red solid 4px;*/
 

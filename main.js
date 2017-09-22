@@ -9,43 +9,75 @@ var xStart;
 var yEnd;
 var xEnd;
 
+$(".gameOver").removeClass("you-lose"); // to stop image flashing briefly upon page load
+
 $(document).ready(function() {
 
 var timePerGo = 10; //global
 var timeLeft;       //global
 var timer;
 
-$(".you-lose").hide();
-$(".myTurn").toggleClass("myTurn");
-$(".submit").prop("disabled", true); //disables the button on page load
+var gameSetup = function(){
+  $(".gameOver").removeClass("you-lose");
+  $(".myTurn").toggleClass("myTurn");
+  $(".submit").prop("disabled", true); //
 
-$(".new-game").click(function(){
-  game = new Boggle();                      // creates a new grid
+  clickedLetters="";
+  $(".clicked-letters").empty();
+  $(".cube").removeClass("clicked"); //
+  $(".wordsPlayer1").text("");
+  $(".wordsPlayer2").text("");
+  $(".cube").removeClass("fixed");
+  $(".submit").addClass("disable");
+
+  $(".svg").empty(); //
+  xStart = undefined; //
+  yStart = undefined; //
 
   player1Array = [];
   player2Array = [];
+};
 
-      $(".myTurn").toggleClass("myTurn");
-      $(".you-lose").hide();
-      clickedLetters="";
-      $(".clicked-letters").empty();
-      $(".cube").removeClass("clicked");
-      $(".wordsPlayer1").text("");
-      $(".wordsPlayer2").text("");
-      $(".cube").removeClass("fixed");
-      $(".submit").prop("disabled", true); //disables the button on 'new game' load
-      $(".submit").addClass("disable");
+var countdownTimer = function(){
+    if(timer!=null){
+      clearInterval(timer);
+    }
+    timeLeft = timePerGo;
+    $(".timer").text(timeLeft);
 
-      $(".cube").effect( "bounce", {times: 4, direction: "up", distance: 50}, 900);
-
-      $(".svg").empty();
-      xStart = undefined;
-      yStart = undefined;
-
-      var flattenedGrid = _.flatten(game.grid); //asigns letters to the grid
-      for(var m=0; m<flattenedGrid.length; m++){
-        $("."+m).text(flattenedGrid[m]);
+    var countdown = function(){
+      if(timeLeft>1){
+        timeLeft--;
+        $(".timer").text(timeLeft);
       }
+      else {
+        $(".gameOver").addClass("you-lose");
+        $(".timer").text(0);
+        $(".submit").prop("disabled", true);
+        $(".submit").addClass("disable");
+        clearInterval(timer);
+        $(".svg").empty();
+        clickedLetters="";
+        $(".clicked-letters").empty();
+      }
+    };
+    timer = setInterval(countdown, 1000);
+};
+
+gameSetup();
+
+$(".new-game").click(function(){
+    game = new Boggle();                      // creates a new grid
+
+    gameSetup();
+
+    $(".cube").effect( "bounce", {times: 4, direction: "up", distance: 50}, 900);
+
+$(".cube").each(function(){
+  $(this).text(game.grid[$(this).attr("y")][$(this).attr("x")]);
+});
+
+    $(".player1").toggleClass("myTurn"); // sets the turn to P1
 
 
 // CLICK
@@ -172,76 +204,49 @@ $(".new-game").click(function(){
         }
 
       });
+      // END OF CLICK LOGIC
 
-
-
-      $(".player1").toggleClass("myTurn");
-
-      if(timer!=null){
-        clearInterval(timer);
-      }
-
-      timeLeft = timePerGo;
-      $(".timer").text(timeLeft);
-
-      var countdown = function(){
-        if(timeLeft>1){
-          timeLeft--;
-          $(".timer").text(timeLeft);
-        }
-        else {
-          $(".you-lose").show();
-          $(".timer").text(0);
-          $(".submit").prop("disabled", true);
-          $(".submit").addClass("disable");
-          clearInterval(timer);
-          $(".svg").empty();
-          clickedLetters="";
-          $(".clicked-letters").empty();
-        }
-      };
-
-      timer = setInterval(countdown, 1000);
-
-
+  countdownTimer();
 
 });
 
+//CLICK SUBMIT
 $(".submit").on("click", function(event){
 
-  $(".submit").prop("disabled", true);
+  $(".submit").prop("disabled", true); //in gameSetup
 
-  $(".cube").removeClass("fixed"); // makes cubes clickable again.
-  $(".svg").empty();
+  $(".cube").removeClass("fixed"); // makes cubes clickable again. // in gameSetup
+  $(".svg").empty();                // in gameSetup
 
-  yStart=undefined;
-  xStart=undefined;
+  yStart=undefined; //in gameSetup
+  xStart=undefined; //in gameSetup
 
   var wordLowerCase = clickedLetters.toLowerCase();
 
+  var invalidWord = function(){
+    $(".submit").toggleClass("disable");
+    clickedLetters="";
+    $(".clicked-letters").empty();
+    $(".cube").removeClass("clicked");
+  };
+
 if(wordList.indexOf(wordLowerCase)<0) {
-  alert(clickedLetters+" isn't in the dictionary, try again");
-  event.preventDefault();
-  $(".submit").toggleClass("disable");
-  clickedLetters="";
-  $(".clicked-letters").empty();
-  $(".cube").removeClass("clicked");
+  $(".grid").addClass("fakeWord");
+  setTimeout(function(){$(".grid").removeClass("fakeWord");},1500);
+  $(".cube").hide();
+  setTimeout(function(){$(".cube").show();},1500);
+  invalidWord();
 }
 
 
   for(var wordToCheck = 0; wordToCheck<player1Array.length; wordToCheck++){
-    if(
-      (clickedLetters)=== player1Array[wordToCheck]||
+    if((clickedLetters)=== player1Array[wordToCheck]||
       (clickedLetters)=== player2Array[wordToCheck])  {
-        alert("this word has been used already, choose another word");
-        event.preventDefault();
-        $(".submit").toggleClass("disable");
-        clickedLetters="";
-        $(".clicked-letters").empty();
-        $(".cube").removeClass("clicked");
-
-    } else {
-
+        $(".grid").addClass("usedWord");
+        setTimeout(function(){$(".grid").removeClass("usedWord");},1200);
+        $(".cube").hide();
+        setTimeout(function(){$(".cube").show();},1200);
+        invalidWord();
     }
   }
 
@@ -249,15 +254,22 @@ if(wordList.indexOf(wordLowerCase)<0) {
         $(".submit").toggleClass("disable"); //makes the button look clickable (i.e. green)
 
         if($(".player1").hasClass("myTurn")){
-
-          player1Array.push(clickedLetters);
-          var player1String = player1Array.join("\n");
-          $(".wordsPlayer1").text(player1String);
+            player1Array.push(clickedLetters);
+            var player1String = player1Array.join("\n");
+            $(".wordsPlayer1").text(player1String);
         } else {
-          player2Array.push(clickedLetters);
-          var player2String = player2Array.join("\n");
-          $(".wordsPlayer2").text(player2String);
+            player2Array.push(clickedLetters);
+            var player2String = player2Array.join("\n");
+            $(".wordsPlayer2").text(player2String);
         }
+
+    if($(".player2").hasClass("myTurn")){
+      $(".wordsPlayer2").removeClass("myTurn");
+      $(".wordsPlayer1").addClass("myTurn");
+    } else if ($(".player1").hasClass("myTurn")){
+      $(".wordsPlayer1").removeClass("myTurn");
+      $(".wordsPlayer2").addClass("myTurn");
+    }
 
         $(".player1").toggleClass("myTurn");
         $(".player2").toggleClass("myTurn");
@@ -266,31 +278,8 @@ if(wordList.indexOf(wordLowerCase)<0) {
         $(".clicked-letters").empty();
         $(".cube").removeClass("clicked");
 
-        if(timer!=null){
-          clearInterval(timer);
-        }
-
-        timeLeft = timePerGo;
-        $(".timer").text(timeLeft);
-        var countdown = function(){
-          if(timeLeft>1){
-            timeLeft--;
-            $(".timer").text(timeLeft);
-          }
-          else {
-            $(".you-lose").show();
-            $(".timer").text(0);
-            $(".submit").prop("disabled", true);
-            $(".submit").addClass("disable");
-            clearInterval(timer);
-            $(".svg").empty();
-          }
-        };
-
-        timer = setInterval(countdown, 1000);
+        countdownTimer();
   }
 });
-
-
 
 });
